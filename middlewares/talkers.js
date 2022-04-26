@@ -11,7 +11,7 @@ const getTalkers = async (__req, res) => {
 };
 
 const getTalkerById = async (req, res) => {
-  talkersList = await readFile();
+  const talkersList = await readFile();
   const id = Number(Object.values(req.params));
   const searchedTalker = talkersList.find((talker) => talker.id === id);
 
@@ -20,7 +20,7 @@ const getTalkerById = async (req, res) => {
   }
   return res.status(STATUS_OK).send(searchedTalker);
   // console.log(searchedTalker);
-}
+};
 
 module.exports = {
   getTalkers,
