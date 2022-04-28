@@ -47,15 +47,14 @@ const authenticateToken = (req, res, next) => {
   const { authorization } = req.headers;
   const letters = /[a-zA-Z]/;
   const numbers = /[1-9]/;
-  const minTokenSize = 16;
 
   if (!authorization) {
     return res.status(HTTP_STATUS_UNAUTHORIZED).json(TOKEN_NOT_FOUND_MESSAGE);
   }
 
-  if (authorization.length !== MIN_TOKEN_LENGTH ||
-    !letters.test(authorization) ||
-    !numbers.test(authorization)) {
+  if (authorization.length !== MIN_TOKEN_LENGTH
+    || !letters.test(authorization)
+    || !numbers.test(authorization)) {
     return res.status(HTTP_STATUS_UNAUTHORIZED).json(INVALID_TOKEN_MESSAGE);
   }
   next();
@@ -70,7 +69,7 @@ const verifyName = (req, res, next) => {
     return res.status(HTTP_STATUS_BAD_REQUEST).json(NAME_MIN_SIZE_MESSAGE);
   }
   next();
-}
+};
 
 const verifyAge = (req, res, next) => {
   const { age } = req.body;
@@ -84,11 +83,16 @@ const verifyAge = (req, res, next) => {
 
 const verifyTalk = (req, res, next) => {
   const { talk } = req.body;
-  const testString = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
 
   if (!talk || !talk.watchedAt || !talk.rate) {
     return res.status(HTTP_STATUS_BAD_REQUEST).json(TALK_KEYS_REQUIRED_MESSAGE);
   }
+  next();
+};
+
+const verifyTalkKeys = (req, res, next) => {
+  const { talk } = req.body;
+  const testString = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
 
   if (!testString.test(talk.watchedAt)) {
     return res.status(HTTP_STATUS_BAD_REQUEST).json(DATE_FORMAT_MESSAGE);
@@ -99,7 +103,7 @@ const verifyTalk = (req, res, next) => {
   }
 
   next();
-}
+};
 
 const addTalker = (req, res) => {
   const actualTalkers = readFile();
@@ -118,5 +122,6 @@ module.exports = {
   verifyName,
   verifyAge,
   verifyTalk,
+  verifyTalkKeys,
   addTalker,
 };

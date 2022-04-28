@@ -22,7 +22,7 @@ const MIN_AGE_MESSAGE = { message: 'A pessoa palestrante deve ser maior de idade
 const DATE_FORMAT_MESSAGE = { message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' };
 const RATE_MUST_BE_INT_MESSAGE = { message: 'O campo "rate" deve ser um inteiro de 1 à 5' };
 const TALK_KEYS_REQUIRED_MESSAGE = {
-  message: 'O campo "talk" é obrigatório e "watchedAt" e "rate" não podem ser vazios'
+  message: 'O campo "talk" é obrigatório e "watchedAt" e "rate" não podem ser vazios',
 };
 
 module.exports = {
