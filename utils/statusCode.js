@@ -16,11 +16,11 @@ const INVALID_PWD_MESSAGE = { message: 'O "password" deve ter pelo menos 6 carac
 const TOKEN_NOT_FOUND_MESSAGE = { message: 'Token não encontrado' };
 const INVALID_TOKEN_MESSAGE = { message: 'Token inválido' };
 const NAME_REQUIRED_MESSAGE = { message: 'O campo "name" é obrigatório' };
-const NAME_MIN_SIZE_MESSAGE = { message: 'O campo "name" deve ter pelo menos 3 caracteres' };
+const NAME_MIN_SIZE_MESSAGE = { message: 'O "name" deve ter pelo menos 3 caracteres' };
 const AGE_REQUIRED_MESSAGE = { message: 'O campo "age" é obrigatório' };
 const MIN_AGE_MESSAGE = { message: 'A pessoa palestrante deve ser maior de idade' };
 const DATE_FORMAT_MESSAGE = { message: 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"' };
-const RATE_MUST_BE_INT_MESSAGE = { message: 'O campo "rate" deve ser um inteiro de 1 a 5' };
+const RATE_MUST_BE_INT_MESSAGE = { message: 'O campo "rate" deve ser um inteiro de 1 à 5' };
 const TALK_KEYS_REQUIRED_MESSAGE = {
   message: 'O campo "talk" é obrigatório e "watchedAt" e "rate" não podem ser vazios'
 };
