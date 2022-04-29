@@ -11,16 +11,24 @@ const {
   addTalker,
   editTalker,
   deleteTalker,
+  searchTalkers,
 } = require('./talkers');
 
 const router = express.Router();
 
+router.get('/talker/search', authenticateToken, searchTalkers);
+
 router.delete('/talker/:id', authenticateToken, deleteTalker);
+
 router.get('/talker', getTalkers);
+
 router.get('/talker/:id', getTalkerById);
+
 router.post('/login', validateEmail, validatePwd, login);
+
 router.post('/talker',
   authenticateToken, verifyName, verifyAge, verifyTalk, verifyTalkKeys, addTalker);
+
 router.put('/talker/:id',
   authenticateToken, verifyName, verifyAge, verifyTalk, verifyTalkKeys, editTalker);
 
