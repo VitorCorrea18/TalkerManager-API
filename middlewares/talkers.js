@@ -40,7 +40,6 @@ const getTalkerById = async (req, res) => {
     return res.status(HTTP_STATUS_NOT_FOUND).send(TALKER_NOT_FOUND_MESSAGE);
   }
   return res.status(HTTP_STATUS_OK).send(searchedTalker);
-  // console.log(searchedTalker);
 };
 
 const authenticateToken = (req, res, next) => {
@@ -84,7 +83,7 @@ const verifyAge = (req, res, next) => {
 const verifyTalk = (req, res, next) => {
   const { talk } = req.body;
 
-  if (!talk || !talk.watchedAt || !talk.rate) {
+  if (!talk || !talk.watchedAt || talk.rate === undefined) {
     return res.status(HTTP_STATUS_BAD_REQUEST).json(TALK_KEYS_REQUIRED_MESSAGE);
   }
   next();
@@ -115,6 +114,26 @@ const addTalker = (req, res) => {
   return res.status(HTTP_STATUS_CREATED).json(newTalker);
 };
 
+const editTalker = (req, res) => {
+  const searchId = Number(Object.values(req.params));
+  const { name, age, talk } = req.body;
+  const talkers = readFile();
+
+  const updatedTalkers = talkers.map((talker) => {
+    if (talker.id === searchId) {
+      return {
+        ...talker,
+        name,
+        age,
+        talk,
+      };
+    } return talker;
+  });
+  const editedTalker = updatedTalkers.filter((talker) => talker.id === searchId);
+  writeFile(JSON.stringify(updatedTalkers));
+  return res.status(HTTP_STATUS_OK).json(editedTalker[0]);
+};
+
 module.exports = {
   getTalkers,
   getTalkerById,
@@ -124,4 +143,5 @@ module.exports = {
   verifyTalk,
   verifyTalkKeys,
   addTalker,
+  editTalker,
 };
