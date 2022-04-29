@@ -7,6 +7,7 @@ const {
   HTTP_STATUS_UNAUTHORIZED,
   HTTP_STATUS_CREATED,
   HTTP_STATUS_BAD_REQUEST,
+  HTTP_STATUS_NO_CONTENT,
   TOKEN_NOT_FOUND_MESSAGE,
   INVALID_TOKEN_MESSAGE,
   NAME_REQUIRED_MESSAGE,
@@ -84,6 +85,8 @@ const verifyTalk = (req, res, next) => {
   const { talk } = req.body;
 
   if (!talk || !talk.watchedAt || talk.rate === undefined) {
+    // !talk.rate não funciona pois se o valor for 0 ele entende como false
+
     return res.status(HTTP_STATUS_BAD_REQUEST).json(TALK_KEYS_REQUIRED_MESSAGE);
   }
   next();
@@ -134,6 +137,16 @@ const editTalker = (req, res) => {
   return res.status(HTTP_STATUS_OK).json(editedTalker[0]);
 };
 
+const deleteTalker = (req, res) => {
+  const idForDelete = Number(Object.values(req.params));
+  const allTalkers = readFile();
+
+  const postDeleteTalkers = allTalkers.filter((talker) => talker.id !== idForDelete);
+  writeFile(JSON.stringify(postDeleteTalkers));
+  console.log(postDeleteTalkers);
+  return res.status(HTTP_STATUS_NO_CONTENT).end();
+};
+
 module.exports = {
   getTalkers,
   getTalkerById,
@@ -144,4 +157,5 @@ module.exports = {
   verifyTalkKeys,
   addTalker,
   editTalker,
+  deleteTalker,
 };

@@ -10,10 +10,12 @@ const {
   verifyTalkKeys,
   addTalker,
   editTalker,
+  deleteTalker,
 } = require('./talkers');
 
 const router = express.Router();
 
+router.delete('/talker/:id', authenticateToken, deleteTalker);
 router.get('/talker', getTalkers);
 router.get('/talker/:id', getTalkerById);
 router.post('/login', validateEmail, validatePwd, login);
